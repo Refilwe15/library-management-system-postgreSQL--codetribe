@@ -81,4 +81,40 @@ INSERT INTO patrons (id, name, email, borrowed_books) VALUES
 (9, 'Ivy Taylor', 'ivy@example.com', ARRAY[]::INT[]),
 (10, 'Jack Anderson', 'jack@example.com', ARRAY[7,8]);
 
+## SPRINT 3(READ OPERAIONS)
+---------------------------------
+## get all books
+
+SELECT * FROM books;
+
+## Get books by title 
+
+SELECT books from books
+WHERE title = '1984';
+
+## Get book by ID
+
+SELECT b.*, a.name AS author_name
+FROM books b
+JOIN authors a ON b.author_id = a.id
+WHERE b.id = 1;
+
+## Get books by author ID
+
+SELECT * FROM books WHERE author_id = 1;
+
+## Get books by authorName
+
+SELECT b.*, a.name AS author_name
+FROM books b
+JOIN authors a ON b.author_id = a.id
+WHERE LOWER(a.name) LIKE LOWER('%orwell%');
+
+## Get all available books
+
+SELECT b.*, a.name AS author_name
+FROM books b
+JOIN authors a ON b.author_id = a.id
+WHERE b.available = TRUE;
+
 
