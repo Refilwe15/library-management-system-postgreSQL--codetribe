@@ -117,4 +117,60 @@ FROM books b
 JOIN authors a ON b.author_id = a.id
 WHERE b.available = TRUE;
 
+## SPRINT 4(UPDATE OPERATIONS)
+------------------------------
+## Mark a book as borrowed (set available = false)
+
+UPDATE books
+SET available = FALSE
+WHERE id = 1;
+
+## Mark a book as returned (set available = true)
+
+UPDATE books
+SET available = TRUE
+WHERE id = 1;
+
+## Add a new genre to an existing book
+
+UPDATE books
+SET genres = array_append(genres, 'Classic')
+WHERE id = 3
+  AND NOT ('Classic' = ANY(genres));
+
+
+## Add borrowed book to patrons record
+
+
+UPDATE patrons
+SET borrowed_books = array_append(borrowed_books, 1)
+WHERE id = 2
+  AND NOT (1 = ANY(borrowed_books));
+
+
+
+## Remove returned book from patron records
+
+UPDATE books
+SET available = FALSE
+WHERE id = 1;
+
+
+UPDATE patrons
+SET borrowed_books = array_remove(borrowed_books, 1)
+WHERE id = 2;
+
+UPDATE books
+SET available = TRUE
+WHERE id = 1;
+
+
+
+
+
+
+
+
+
+
 
