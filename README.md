@@ -164,6 +164,18 @@ UPDATE books
 SET available = TRUE
 WHERE id = 1;
 
+## SPRINT 5(DELETE OPERATIONS)
+-----------------------------------
+
+## delete a  book by title
+
+DELETE FROM books
+WHERE title = 'The Hobbit';
+
+## Delete an author by ID
+
+DELETE FROM authors WHERE id = 10;
+
 
 
 
