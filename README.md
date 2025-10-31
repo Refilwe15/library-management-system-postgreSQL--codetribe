@@ -39,10 +39,10 @@ CREATE TABLE patrons (
   borrowed_books INT[] DEFAULT ARRAY[]::INT[]
 );
 
-## SPRINT 2Insert the sample rows (the provided sample data)
+## SPRINT 2 (Insert the sample rows)
 ------------------------------------------------------------
 
-## Authors (10)
+## Authors 
 INSERT INTO authors (id, name, nationality, birth_year, death_year) VALUES
 (1, 'George Orwell', 'British', 1903, 1950),
 (2, 'Harper Lee', 'American', 1926, 2016),
@@ -55,7 +55,7 @@ INSERT INTO authors (id, name, nationality, birth_year, death_year) VALUES
 (9, 'Fyodor Dostoevsky', 'Russian', 1821, 1881),
 (10, 'J.R.R. Tolkien', 'British', 1892, 1973);
 
-## Books (10)
+## Books 
 INSERT INTO books (id, title, author_id, genres, published_year, available) VALUES
 (1, '1984', 1, ARRAY['Dystopian', 'Political Fiction'], 1949, TRUE),
 (2, 'To Kill a Mockingbird', 2, ARRAY['Southern Gothic', 'Bildungsroman'], 1960, TRUE),
@@ -68,7 +68,7 @@ INSERT INTO books (id, title, author_id, genres, published_year, available) VALU
 (9, 'Crime and Punishment', 9, ARRAY['Philosophical Novel'], 1866, TRUE),
 (10, 'The Hobbit', 10, ARRAY['Fantasy'], 1937, TRUE);
 
-## Patrons (10)
+## Patrons 
 INSERT INTO patrons (id, name, email, borrowed_books) VALUES
 (1, 'Alice Johnson', 'alice@example.com', ARRAY[]::INT[]),
 (2, 'Bob Smith', 'bob@example.com', ARRAY[1,2]),
@@ -175,6 +175,70 @@ WHERE title = 'The Hobbit';
 ## Delete an author by ID
 
 DELETE FROM authors WHERE id = 10;
+
+## SPRINT 6 (ADVANCED QUERIES)
+-------------------------------------
+## Find books published after 1950
+
+SELECT * FROM books WHERE published_year > 1950 ORDER BY published_year;
+
+## Find all american authors
+
+SELECT * FROM authors WHERE LOWER(nationality) = 'american';
+
+## Set all books as available
+
+UPDATE books SET available = TRUE;
+
+## Find all books that are available AND published after 1950
+
+SELECT b.*, a.name AS author_name
+FROM books b
+JOIN authors a ON b.author_id = a.id
+WHERE b.available = TRUE AND b.published_year > 1950;
+
+## Find authors whose names contain "George" 
+
+SELECT * FROM authors WHERE LOWER(name) LIKE '%george%';
+
+## Increment the published year 1869 by 1
+
+UPDATE books
+SET published_year = published_year + 1
+WHERE published_year = 1869;
+
+## Bulk update example: add genre 'Classic' to all books published before 1950
+
+UPDATE books
+SET genres = array_cat(genres, ARRAY['Classic'])
+WHERE published_year < 1950
+  AND NOT ('Classic' = ANY(genres));
+
+## find books where genre includes 'Dystopian'
+
+  SELECT * FROM books WHERE 'Dystopian' = ANY(genres);
+
+
+
+## SPRINT 7
+---------------
+
+# Library Management System 
+
+## Description
+
+A simple Library Management System implemented in PostgreSQL. Stores authors, books, and patrons. Supports CRUD operations and advanced queries.
+
+## Setup
+1. Open   pgAdmin.
+2. Create the database:
+   - psql: CREATE DATABASE LibraryDB;
+
+
+
+
+
+
 
 
 
