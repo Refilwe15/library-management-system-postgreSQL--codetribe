@@ -88,9 +88,8 @@ INSERT INTO patrons (id, name, email, borrowed_books) VALUES
 SELECT * FROM books;
 
 ## Get books by title 
-
 SELECT * from books
-WHERE title = '1984';
+WHERE title = 'Moby-Dick';
 
 ## Get book by ID
 
