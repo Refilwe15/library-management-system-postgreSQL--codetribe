@@ -40,7 +40,7 @@ CREATE TABLE patrons (
 );
 
 ## SPRINT 2 (Insert the sample rows)
-------------------------------------------------------------
+-----------------------------------------------------------
 
 ## Authors 
 INSERT INTO authors (id, name, nationality, birth_year, death_year) VALUES
@@ -89,7 +89,7 @@ SELECT * FROM books;
 
 ## Get books by title 
 
-SELECT books from books
+SELECT * from books
 WHERE title = '1984';
 
 ## Get book by ID
